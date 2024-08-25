@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package attendance.v1;
+
+option go_package = "github.com/Zenzaiko/attendance-backend/attendance/v1;attendancev1";
+
+message RegisterClockInOutRequest {
+    string user_id = 1;
+}
+
+message RegisterClockInOutResponse {
+    bool is_clock_in = 1;
+}
+
+message GetAttendanceListRequest {
+    string date = 1;
+}
+
+message GetAttendanceListResponse {
+    repeated AttendanceInfo list = 1;
+}
+
+message AttendanceInfo {
+    string user_id = 1;
+    string user_name = 2;
+    string clock_in_time = 3;
+    string clock_out_time = 4;
+}
+
+service AttendanceService {
+    rpc RegisterClockInOut(RegisterClockInOutRequest) returns (RegisterClockInOutResponse);
+    rpc GetAttendanceList(GetAttendanceListRequest) returns (GetAttendanceListResponse);
+}
